@@ -2,6 +2,30 @@
 
 Este documento proporciona los comandos `curl` para interactuar con la API.
 
+### 1. Ejecutar los microservicios
+
+Asegúrate de tener instaladas todas las dependencias necesarias en cada microservicio `client-getway` `orders-ms` `pedidos-ms` `user-ms` antes de iniciarlos.
+
+1. **Ejemplo cliente-gateway:**
+   - Navega a la carpeta del microservicio:
+     ```bash
+     cd client-getway
+     ```
+   - Instala las dependencias:
+     ```bash
+     npm install
+     ```
+   - Inicia el servidor:
+     ```bash
+     npm run start:dev
+---
+### Tecnologías utilizadas
+
+- **TCP**: Comunicación entre microservicios.
+- **PostgreSQL**: Base de datos para almacenamiento.
+- **JWT**: Autenticación de usuarios.
+- **Bcrypt**: Encriptación de contraseñas.
+
 ---
 ### Crear un usuario (nombre, email, contraseña hasheada).
 
