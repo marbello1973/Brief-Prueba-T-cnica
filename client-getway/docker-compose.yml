@@ -1,0 +1,17 @@
+
+# services:
+#   cliente-gateway:
+#     build: ./client-getway
+#     ports:
+#       - "3000:3000"
+#     environment:
+#       - USER_MICROSERVICE_HOST=user-ms
+#       - USER_MICROSERVICE_PORT=3003
+#       - PEDIDO_MICROSERVICE_HOST=pedidos-ms
+#       - PEDIDO_MICROSERVICE_PORT=3001
+#       - ORDERS_MICROSERVICE_HOST=orders-ms
+#       - ORDERS_MICROSERVICE_PORT=3002
+#     depends_on:
+#       - user-ms
+#       - pedidos-ms
+#       - orders-ms

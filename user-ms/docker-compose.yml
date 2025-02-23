@@ -1,0 +1,25 @@
+# version: '3.8'
+
+# services:
+#   user-db:
+#     image: postgres:16.2
+#     environment:
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: 5610
+#       POSTGRES_DB: user
+#     volumes:
+#       - user_data:/var/lib/postgresql/data
+#     ports:
+#       - "5432:5432"
+
+#   user-ms:
+#     build: .
+#     ports:
+#       - "3003:3003"
+#     environment:
+#       DATABASE_URL: postgresql://postgres:5610@user-db:5432/user?schema=public
+#     depends_on:
+#       - user-db
+
+# volumes:
+#   user_data:

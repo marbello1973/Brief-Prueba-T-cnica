@@ -1,0 +1,3 @@
+export const PEDIDO_SERVICE = 'PEDIDO_SERVICE';
+export const ORDERS_SERVICE = 'ORDERS_SERVICE';
+export const USER_SERVICE = 'USER_SERVICE';

@@ -1,0 +1,95 @@
+
+services:
+  # Servicio de la base de datos para user-ms
+  user-db:
+    container_name: user_database
+    image: postgres:16.2
+    restart: always
+    volumes:
+      - ./user-data:/var/lib/postgresql/data
+    ports:
+      - "5431:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 5610
+      POSTGRES_DB: user
+
+  # Servicio de la base de datos para pedidos-ms
+  pedidos-db:
+    container_name: pedidos_database
+    image: postgres:16.2
+    restart: always
+    volumes:
+      - ./pedidos-data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 5610
+      POSTGRES_DB: pedidos
+
+  # Servicio de la base de datos para orders-ms
+  orders-db:
+    container_name: orders_database
+    image: postgres:16.2
+    restart: always
+    volumes:
+      - ./orders-data:/var/lib/postgresql/data
+    ports:
+      - "5435:5432"  
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 5610
+      POSTGRES_DB: orderdb
+
+  # Microservicio de usuarios
+  user-ms:
+    build: ./user-ms
+    ports:
+      - "3003:3003"
+    environment:
+      DATABASE_URL: postgresql://postgres:5610@user-db:5432/user?schema=public
+    depends_on:
+      - user-db
+
+  # Microservicio de pedidos
+  pedidos-ms:
+    build: ./pedidos-ms
+    ports:
+      - "3001:3001"
+    environment:
+      DATABASE_URL: postgresql://postgres:5610@pedidos-db:5432/pedidos?schema=public
+    depends_on:
+      - pedidos-db
+
+  # Microservicio de órdenes
+  orders-ms:
+    build: ./orders-ms
+    ports:
+      - "3002:3002"
+    environment:
+      DATABASE_URL: postgresql://postgres:5610@orders-db:5432/orderdb?schema=public
+    depends_on:
+      - orders-db
+
+  # Gateway (cliente)
+  cliente-gateway:
+    build: ./client-getway
+    ports:
+      - "3000:3000"
+    environment:
+      - USER_MICROSERVICE_HOST=user-ms
+      - USER_MICROSERVICE_PORT=3003
+      - PEDIDO_MICROSERVICE_HOST=pedidos-ms
+      - PEDIDO_MICROSERVICE_PORT=3001
+      - ORDERS_MICROSERVICE_HOST=orders-ms
+      - ORDERS_MICROSERVICE_PORT=3002
+    depends_on:
+      - user-ms
+      - pedidos-ms
+      - orders-ms
+
+volumes:
+  user-data:
+  pedidos-data:
+  orders-data:
